@@ -168,6 +168,7 @@ void LEDCOutput::setup() {
   chan_conf.timer_sel = timer_num;
   chan_conf.duty = inverted_ == pin_->is_inverted() ? 0 : (1U << bit_depth_);
   chan_conf.hpoint = hpoint;
+  chan_conf.output_invert = inverted_ == pin_->is_inverted() ? 1 : 0;
   ledc_channel_config(&chan_conf);
   initialized_ = true;
   this->status_clear_error();
