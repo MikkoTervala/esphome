@@ -108,8 +108,10 @@ void LEDCOutput::write_state(float state) {
     return;
   }
 
+#ifdef USE_ESP_IDF
   if (this->pin_->is_inverted())
     state = 1.0f - state;
+#endif
 
   this->duty_ = state;
   const uint32_t max_duty = (uint32_t(1) << this->bit_depth_) - 1;
