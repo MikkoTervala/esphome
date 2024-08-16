@@ -162,6 +162,8 @@ void LEDCOutput::setup() {
 
   ESP_LOGW(TAG, "Test log");
   ESP_LOGV(TAG, "Pin inverted: %d", pin_->is_inverted());
+  ESP_LOGV(TAG, "What is this: %d", inverted_);
+  ESP_LOGV(TAG, "And this %d", (inverted_ == pin_->is_inverted()));
 
   ledc_channel_config_t chan_conf{};
   chan_conf.gpio_num = pin_->get_pin();
@@ -171,7 +173,7 @@ void LEDCOutput::setup() {
   chan_conf.timer_sel = timer_num;
   chan_conf.duty = inverted_ == pin_->is_inverted() ? 0 : (1U << bit_depth_);
   chan_conf.hpoint = hpoint;
-  // chan_conf.flags.output_invert = inverted_ == pin_->is_inverted() ? 1 : 0;
+  chan_conf.flags.output_invert = pin_->is_inverted() ? 1 : 0;
   ledc_channel_config(&chan_conf);
   initialized_ = true;
   this->status_clear_error();
