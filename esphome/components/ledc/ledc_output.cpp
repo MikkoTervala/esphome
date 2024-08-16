@@ -158,6 +158,8 @@ void LEDCOutput::setup() {
   ESP_LOGV(TAG, "Configured frequency %f with a bit depth of %u bits", this->frequency_, this->bit_depth_);
   ESP_LOGV(TAG, "Angle of %.1f° results in hpoint %u", this->phase_angle_, hpoint);
 
+  ESP_LOGW(TAG, "Test log");
+
   ledc_channel_config_t chan_conf{};
   chan_conf.gpio_num = pin_->get_pin();
   chan_conf.speed_mode = speed_mode;
