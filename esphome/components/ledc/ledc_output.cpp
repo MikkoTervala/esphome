@@ -162,8 +162,8 @@ void LEDCOutput::setup() {
 
   ESP_LOGW(TAG, "Test log");
   ESP_LOGV(TAG, "Pin inverted: %d", pin_->is_inverted());
-  ESP_LOGV(TAG, "What is this: %d", inverted_);
-  ESP_LOGV(TAG, "And this %d", (inverted_ == pin_->is_inverted()));
+  ESP_LOGV(TAG, "Output inverted: %d", inverted_);
+  // ESP_LOGV(TAG, "And this %d", (inverted_ == pin_->is_inverted()));
 
   ledc_channel_config_t chan_conf{};
   chan_conf.gpio_num = pin_->get_pin();
