@@ -111,6 +111,7 @@ void LEDCOutput::write_state(float state) {
 // #ifdef USE_ARDUINO
   if (this->pin_->is_inverted())
     state = 1.0f - state;
+    ESP_LOGV(TAG, "Inverting dyty");
 // #endif
 
   this->duty_ = state;
