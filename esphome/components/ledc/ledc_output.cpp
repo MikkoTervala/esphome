@@ -108,7 +108,7 @@ void LEDCOutput::write_state(float state) {
     return;
   }
 
-#ifdef USE_ESP_IDF
+#ifdef USE_ARDUINO
   if (this->pin_->is_inverted())
     state = 1.0f - state;
 #endif
@@ -161,6 +161,7 @@ void LEDCOutput::setup() {
   ESP_LOGV(TAG, "Angle of %.1f° results in hpoint %u", this->phase_angle_, hpoint);
 
   ESP_LOGW(TAG, "Test log");
+  ESP_LOGV(TAG, "Pin inverted: %d", pin_->is_inverted());
 
   ledc_channel_config_t chan_conf{};
   chan_conf.gpio_num = pin_->get_pin();
