@@ -3,6 +3,7 @@ from esphome.components import output
 import esphome.config_validation as cv
 import esphome.codegen as cg
 from esphome.const import (
+    CONF_INVERTED,
     CONF_PHASE_ANGLE,
     CONF_CHANNEL,
     CONF_FREQUENCY,
@@ -50,6 +51,7 @@ CONFIG_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend(
         cv.Optional(CONF_PHASE_ANGLE): cv.All(
             cv.only_with_esp_idf, cv.angle, cv.float_range(min=0.0, max=360.0)
         ),
+        cv.Optional(CONF_INVERTED): cv.boolean,
     }
 ).extend(cv.COMPONENT_SCHEMA)
 
@@ -64,6 +66,8 @@ async def to_code(config):
     cg.add(var.set_frequency(config[CONF_FREQUENCY]))
     if CONF_PHASE_ANGLE in config:
         cg.add(var.set_phase_angle(config[CONF_PHASE_ANGLE]))
+    if CONF_INVERTED in config:
+        cg.add(var.set_inverted(config[CONF_INVERTED]))
 
 
 @automation.register_action(
