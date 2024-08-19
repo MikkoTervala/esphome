@@ -108,8 +108,10 @@ void LEDCOutput::write_state(float state) {
     return;
   }
 
+#ifdef USE_ARDUINO
   if (this->pin_->is_inverted())
     state = 1.0f - state;
+#endif
 
   this->duty_ = state;
   const uint32_t max_duty = (uint32_t(1) << this->bit_depth_) - 1;
@@ -166,6 +168,7 @@ void LEDCOutput::setup() {
   chan_conf.timer_sel = timer_num;
   chan_conf.duty = inverted_ == pin_->is_inverted() ? 0 : (1U << bit_depth_);
   chan_conf.hpoint = hpoint;
+  chan_conf.flags.output_invert = pin_->is_inverted() ? 1 : 0;
   ledc_channel_config(&chan_conf);
   initialized_ = true;
   this->status_clear_error();
